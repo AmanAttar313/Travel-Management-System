@@ -1,0 +1,68 @@
+.header {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #fff;
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+
+/* Sticky effect when scrolling */
+.sticky__header {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #fff;
+}
+
+.logo img {
+    width: 130px;
+    height: auto;
+    object-fit: contain;
+}
+
+.menu {
+    margin-bottom: 0;
+}
+
+.nav__item a {
+    text-decoration: none;
+    color: var(--heading-color);
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.3s;
+}
+
+.nav__item a:hover {
+    color: var(--secondary-color);
+}
+
+.nav__item a.active__link {
+    color: var(--secondary-color);
+}
+
+.nav__right {
+    display: flex;
+    align-items: center;
+}
+
+.mobile__menu {
+    display: none; /* hide on desktop */
+    cursor: pointer;
+}
+
+.mobile__menu i {
+    font-size: 1.6rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+    }
+    .mobile__menu {
+        display: block;
+    }
+}

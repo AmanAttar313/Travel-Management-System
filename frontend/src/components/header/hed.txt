@@ -1,0 +1,246 @@
+.header {
+    width: 100%;
+    height: 80px;          /* FIXED — set fixed height */
+    line-height: 80px;
+    position: fixed;       /* STICK TO TOP */
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #fff;      /* give white background */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* nice shadow */
+}
+
+.logo img {
+    width: 120px; /* Increase size properly */
+}
+
+.menu {
+    margin-bottom: 0;
+}
+
+.nav__item a {
+    text-decoration: none;
+    color: var(--heading-color);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.nav__item a:hover{
+    color: inherit;
+}
+.nav__item a.active__link{
+    color: var(--secondary-color);
+
+}
+.sticky__header{
+    width: 100px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 3px 8px -3px #ddd;
+    z-index: 999;
+}
+
+
+
+
+.menu__menu{
+    font-size: 1.3rem;
+    color: var(--heading-color);
+    display: none;
+}
+.nav__right {
+    display: flex;
+    align-items: center;
+}
+
+.mobile__menu i {
+    font-size: 1.6rem;
+    cursor: pointer;
+    display: none;  /* hide for desktop */
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none; /* hide desktop menu on mobile */
+    }
+
+    .mobile__menu i {
+        display: block;
+    }
+}
+
+
+
+
+
+
+
+
+ const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 1000,
+    swipeToSlide: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  return (
+    <Slider {...settings}>
+
+      {/* Slide 1 */}
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava01} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>John Doe</h5>
+              <p>Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 2 */}
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava02} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>Jorden Jojo</h5>
+              <p >Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava03} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>John Doe</h5>
+              <p>Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 2 */}
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava02} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>Jorden Jojo</h5>
+              <p >Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava03} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>John Doe</h5>
+              <p>Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 2 */}
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava02} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>Jorden Jojo</h5>
+              <p >Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava01} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>John Doe</h5>
+              <p>Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 2 */}
+      <div>
+        <div className="testomonial py-4 px-3">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+
+          <div className='d-flex align-items-center gap-3 mt-3'>
+            <img src={ava02} className='h-25 w-25 rounded-2' alt="" />
+            <div>
+              <h5 className='mb-0 mt-3'>Jorden Jojo</h5>
+              <p >Customer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Slider>
