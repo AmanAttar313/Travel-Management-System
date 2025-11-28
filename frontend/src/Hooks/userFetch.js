@@ -11,15 +11,12 @@ const useFetch = (url) => {
 
       try {
         const res = await fetch(url);
-
-        if (!res.ok) {
-          setError("Failed to fetch");
-          
-         
-       
-        }
-
+      //  console.log("response : " , res)
         const result = await res.json();
+        if (!res.ok) {
+          setError("Failed to fetch");       
+        }
+      //  console.log("reuslt : " , result);
         setData(result.data);
         setLoading(false)
       } catch (err) {

@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react' // <--- ADDED 'useEffect' HERE
-import TourCard from '../../shared/TourCard'
-
+// import TourCard from '../../shared/TourCard'
 import { Col } from 'reactstrap'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import useFetch from '../../Hooks/userFetch'
 import { BASE_URL } from '../../utils/config'
+import tourData from '../../assets/data/tours'
+import TourCardHome from '../../shared/TourCardHome'
 
 
 const FeaturedToursList = () => {
 
-   const { data: featuredTours, loading, error } = useFetch(`${BASE_URL}/tours/search/getFeaturedTours`);
+  //  const { data: featuredTours, loading, error } = useFetch(`${BASE_URL}/tours/search`);
 
-    console.log(featuredTours)
+    // console.log("data : " , featuredTours)
     
     useEffect(() => {
       Aos.init({
@@ -21,21 +22,18 @@ const FeaturedToursList = () => {
       });
       Aos.refresh(); 
     }, []);
+
+
+
+
+    
   
 
   return (
     <>
-    {
-      loading && <h4>Loading........</h4>
-    }
-    {
-      error && <h4>{error}</h4>
-    }
-
-
-
+  
     {    
-     !loading && !error && featuredTours?.map((tour, index) => (
+      tourData?.map((tour, index) => (
         
         <Col 
           lg='3' 
@@ -44,7 +42,7 @@ const FeaturedToursList = () => {
           data-aos="fade-up" 
           data-aos-delay={`${index * 100}`} 
         >
-          <TourCard tour={tour}></TourCard>
+          <TourCardHome tour={tour}></TourCardHome>
         </Col>
       ))
     }

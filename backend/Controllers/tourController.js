@@ -94,9 +94,12 @@ export const getAllTour=async(req,res)=>{
 
 //get Tour By search
 export const getTourBySearch = async (req, res) => {
+
   const city = new RegExp(req.query.city, 'i'); // case-insensitive
   const distance = parseInt(req.query.distance);
   const maxGroupSize = parseInt(req.query.maxGroupSize);
+
+  
 
   try {
     // Find tours matching search criteria
@@ -114,12 +117,15 @@ export const getTourBySearch = async (req, res) => {
       });
     }
 
+
     res.status(200).json({
       success: true,
       message: 'Successfully fetched tours by search',
       data: tours
     });
+
   } catch (err) {
+
     console.error(err);
     res.status(500).json({
       success: false,

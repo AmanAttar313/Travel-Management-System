@@ -4,7 +4,7 @@ import { Container,Row,Col } from 'reactstrap'
 import maleTourist from '../assets/images/male-tourist.png'
 const NewsLetter = () => {
   return <>
-    <section>
+    <section className='newsletter'>
       <Container className='newsletter'>
         <Row>
           <Col lg='6'>
@@ -21,8 +21,8 @@ const NewsLetter = () => {
           </div>
           </Col>
           <Col g='6'>
-          <div className="newsletter__img">
-            <img src={maleTourist} alt="" />
+          <div className="newsletter__img" >
+            <img src={maleTourist} alt=""/>
           </div>
           </Col>
         </Row>

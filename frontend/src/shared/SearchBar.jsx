@@ -11,10 +11,12 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const searchHandler = async () => {
+
     const location = locationRef.current.value;
     const distance = distanceRef.current.value;
     const maxGroupSize = maxGroupSizeRef.current.value;
 
+    
     if (!location || !distance || !maxGroupSize) {
       return alert('All Fields Are Required!');
     }

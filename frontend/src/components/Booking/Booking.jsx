@@ -2,8 +2,17 @@ import React,{useState} from 'react'
 import './booking.css'
 import { Form,FormGroup,ListGroup,ListGroupItem,Button } from 'reactstrap'
 import { useNavigate } from 'react-router-dom'
-const Booking = ({tour,avgRating}) => {
-    const {price,reviews}=tour
+
+
+
+const Booking = ({tour ,avgRating}) => {
+      
+
+
+    const {price,reviews}=tour[0];
+
+
+    console.log("tour in booking : " , tour)
     const navigate=useNavigate()
 
     const [credentials,setCredentials]=useState({
@@ -16,6 +25,7 @@ const Booking = ({tour,avgRating}) => {
     })
 
     const serviceFee=10
+
     const totalAmount=Number(price)*Number(credentials.guestSize)+Number(serviceFee)
 
      const handleChange = e => {

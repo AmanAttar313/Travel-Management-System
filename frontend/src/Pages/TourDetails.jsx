@@ -13,13 +13,21 @@ const TourDetails = () => {
   const reviewMsgRef = useRef(null);
   const [tourRating, setTourRating] = useState(null);
 
-  const tour = tourData.find(tour => tour.id === id); // find tour by id
-  if (!tour) return <h2>Tour not found!</h2>;
+  // const tour = tourData.find(tour => tour._id === id) || { }; // find tour by id
+  const tour = tourData.filter(tour => tour._id === id) || { }; // find tour by id
 
-  const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = tour;
+  
+  if (!tour) return <h2>Tour not found!</h2>;
+  
+  const { photo, title, desc, price, reviews, city, distance, maxGroupSize, address } = tour[0] ;
+  
+  console.log("data in tour : " , tour[0]);
+
+
   const { totalRating, avgRating } = calculateAvgRating(reviews);
 
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
 
   // Submit review
   const submitHandler = e => {
@@ -49,8 +57,10 @@ const TourDetails = () => {
                   <div className='d-flex align-items-center gap-5'>
                     <span className="tour__rating d-flex align-items-center gap-1">
                       <i className="ri-star-fill" style={{ color: "var(--secondary-color)" }}></i>
-                      {avgRating === 0 ? 'Not rated' : avgRating.toFixed(1)}
+                      
+                      {avgRating === 0 ? 'Not rated' : avgRating}
                       {totalRating > 0 && <span>({reviews.length})</span>}
+
                     </span>
 
                     <span>

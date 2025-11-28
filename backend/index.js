@@ -10,8 +10,9 @@ import reviewRoute from './route/reviews.js'
 import bookingRoute from './route/booking.js'
 
 
-dotenv.config()
-const app = express()
+dotenv.config();
+
+const app = express();
 const corsOptions={
     origin:true,
     credentials:true
@@ -34,6 +35,7 @@ const connect = async () => {
 
 // Middlewares
 app.use(express.json())
+app.use(express.urlencoded({extended : true}));
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use('/api/v1/auth',authRoute)
