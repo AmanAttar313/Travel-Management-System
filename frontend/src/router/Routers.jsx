@@ -7,6 +7,7 @@ import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import SearchResultList from '../Pages/SearchResultList'
 import ThankYou from '../Pages/ThankYou'
+import UserDashboard from '../Pages/UserDashboard'
 
 const Routers = () => {
     return (
@@ -19,6 +20,7 @@ const Routers = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/thankyou' element={<ThankYou />} />
             <Route path='/tours/search' element={<SearchResultList />} />
+            <Route path='/profile/:email' element={<UserDashboard/>} />
         </Routes>
 
     )

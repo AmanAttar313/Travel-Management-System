@@ -1,28 +1,32 @@
-import React, { useRef, useEffect } from "react";
+import  { useRef, useEffect } from "react";
 import { Container, Row, Button } from "reactstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import "./header.css";
+import { useAuth } from "../../contexts/AuthContext";
 
 const nav_links = [
-  {
-    path: "/home",
-    display: "Home",
-  },
-  {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/tours",
-    display: "Tours",
-  },
+  { path: "/home", display: "Home" },
+  { path: "/about", display: "About" },
+  { path: "/tours", display: "Tours" },
 ];
 
-const Header = () => {
-  const headerRef = useRef(null);
 
-  // Sticky Header Function
+
+const Header = () => {
+  const { isAuthenticated  , logout , username , email} = useAuth(); 
+
+  console.log(isAuthenticated  , username  , email);
+
+  const headerRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/home'); // Redirect to home after logout
+  };
+
+  // Sticky Header Logic
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -36,7 +40,6 @@ const Header = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -45,13 +48,14 @@ const Header = () => {
       <Container>
         <Row>
           <div className="nav_wrapper d-flex align-items-center justify-content-between">
-
-            {/* LOGO */}
+            {/* ============ LOGO ============ */}
             <div className="logo">
-              <img src={Logo} alt="Logo" />
+              <Link to="/home">
+                <img src={Logo} alt="Logo" />
+              </Link>
             </div>
 
-            {/* MENU */}
+            {/* ============ MENU ============ */}
             <div className="navigation">
               <ul className="menu d-flex align-items-center gap-5">
                 {nav_links.map((item, index) => (
@@ -69,23 +73,53 @@ const Header = () => {
               </ul>
             </div>
 
-            {/* RIGHT BUTTONS */}
+            {/* ============ RIGHT SIDE (Auth & Mobile) ============ */}
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
-                <Button className="btn secondary__btn">
-                  <Link to="/login">Login</Link>
-                </Button>
-                <Button className="btn primary__btn">
-                  <Link to="/register">Register</Link>
-                </Button>
+                
+                {isAuthenticated ? (
+                  /* === LOGGED IN VIEW === */
+                  <div className="user__profile d-flex align-items-center gap-3">
+                    <div
+                    onClick={()=>{
+                      navigate(`/profile/${email}`)
+                    }}
+                    className="d-flex align-items-center gap-3">
+                       <div className="profile__img">
+                      <img
+                        src={"/profile.png"} 
+                        alt="profile"
+                      />
+                      {/* <p>{"J"}</p> */}
+                      
+                    </div>
+                    <h5 className="mb-0 fw-bold">{ username || "User"}</h5>
+
+                    </div>
+                    <Button className="btn primary__btn logout__btn"  onClick={ ()=>{
+                      handleLogout()
+                    }} >
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  /* === GUEST VIEW === */
+                  <>
+                    <Button className="btn secondary__btn">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                    <Button className="btn primary__btn">
+                      <Link to="/register">Register</Link>
+                    </Button>
+                  </>
+                )}
               </div>
 
-              {/* MOBILE MENU ICON */}
+              {/* Mobile Menu Icon */}
               <span className="mobile__menu">
                 <i className="ri-menu-line"></i>
               </span>
             </div>
-
           </div>
         </Row>
       </Container>
@@ -94,3 +128,4 @@ const Header = () => {
 };
 
 export default Header;
+

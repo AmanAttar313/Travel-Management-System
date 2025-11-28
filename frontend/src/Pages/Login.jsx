@@ -4,21 +4,51 @@ import { Link } from 'react-router-dom'
 import '../styles/login.css'
 import loginImg from '../assets/images/login.png'
 import userIcon from '../assets/images/user.png'
+import { useAuth } from '../contexts/AuthContext'
+import{useNavigate} from "react-router-dom"
+import { axiosInstance } from '../config/axiosInstances'
+
 
 const Login = () => {
+  const naviagte = useNavigate();
    const [credentials,setCredentials]=useState({
         email:undefined,
         password:undefined
       })
   
+      const { login } = useAuth(); // Assuming 'logout' and 'user' exist in context
       
   
        const handleChange = e => {
           setCredentials(prev=>({...prev,[e.target.id]:e.target.value}))
        };
-       const handleClick=e=>{
-        e.preventDefault()
-       }
+
+
+        const handleClick=async(e)=>{
+              e.preventDefault();
+             try {
+      
+              const reponse = await axiosInstance.post("/users/login" , credentials);
+      
+              console.log("response : " , reponse.data);
+      
+              //save in state
+              login(reponse.data?.username , reponse.data?.email, "user" , reponse.data?.token);
+              
+              //navigate
+               naviagte("/");
+      
+             } catch (error) {
+                console.log("error : ", error);
+
+                // Use ?. to safely access nested properties
+                alert(error.response?.data?.message || "Something went wrong!");
+             }
+      
+             }
+
+
+
   return (
     <section>
       <Container>

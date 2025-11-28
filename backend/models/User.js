@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
       unique: true,
     },
     email: {
@@ -19,7 +18,7 @@ const userSchema = new mongoose.Schema(
 
     photo: {
       type: String,
-      default : ""
+      default : "/"
     },
 
     role: {

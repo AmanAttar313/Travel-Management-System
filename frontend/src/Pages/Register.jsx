@@ -5,26 +5,46 @@ import { Link } from 'react-router-dom'
 import '../styles/login.css'
 import registerImg from '../assets/images/register.png'
 import userIcon from '../assets/images/user.png'
+import { useNavigate } from "react-router-dom"
+import { axiosInstance } from '../config/axiosInstances'
+
+
 
 const Register = () => {
  
+ const navigation = useNavigate();
 
 
-
-   const [credentials,setCredentials]=useState({
-    username:undefined,
+   const [ credentials , setCredentials]=useState({
+         username:undefined,
         email:undefined,
         password:undefined
       })
   
-      
+    
   
        const handleChange = e => {
           setCredentials(prev=>({...prev,[e.target.id]:e.target.value}))
        };
-       const handleClick=e=>{
-        e.preventDefault()
+
+       const handleClick=async(e)=>{
+        e.preventDefault();
+       try {
+
+        const reponse = await axiosInstance.post("/users/register" , credentials);
+
+        console.log("response : " , reponse.data);
+
+        //navigate
+         navigation("/login");
+
+       } catch (error) {
+        console.log("error : " , error);
+        alert("user register failed!")
        }
+
+       }
+
   return (
     <section>
       <Container>
@@ -42,6 +62,9 @@ const Register = () => {
               <Form onSubmit={handleClick}>
                 <FormGroup>
                   <input type="text" placeholder='Username' required id='username' onChange={handleChange} />
+                </FormGroup>
+                 <FormGroup>
+                  <input type="text" placeholder='Email' required id='email' onChange={handleChange} />
                 </FormGroup>
                   <FormGroup>
                   <input type="password" placeholder='Password' required id='password' onChange={handleChange} />
