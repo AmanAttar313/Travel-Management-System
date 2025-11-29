@@ -8,6 +8,8 @@ import Register from '../Pages/Register'
 import SearchResultList from '../Pages/SearchResultList'
 import ThankYou from '../Pages/ThankYou'
 import UserDashboard from '../Pages/UserDashboard'
+import AdminDashboard from '../Pages/AdminDashboard'
+import AdminProtected from '../utils/AdminProtected'
 
 const Routers = () => {
     return (
@@ -21,6 +23,17 @@ const Routers = () => {
             <Route path='/thankyou' element={<ThankYou />} />
             <Route path='/tours/search' element={<SearchResultList />} />
             <Route path='/profile/:email' element={<UserDashboard/>} />
+           
+
+<Route
+  path="/admin/dashboard"
+  element={
+    <AdminProtected>
+      <AdminDashboard />
+    </AdminProtected>
+  }
+/>
+
         </Routes>
 
     )

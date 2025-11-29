@@ -1,93 +1,119 @@
-.login__img{
+/* ---------- Left Image Section ---------- */
+.login__img {
     width: 60%;
     text-align: center;
 }
-.login__img img{
+.login__img img {
     width: 70%;
     object-fit: contain;
 }
-.login__form{
+
+/* ---------- Login Form Section ---------- */
+.login__form {
+    width: 40%;
     padding: 50px;
     background: var(--secondary-color);
     position: relative;
 }
-.login__container{
+.login__container {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     margin-top: 100px;
 }
-.login__container .user{
+.login__container .user {
     width: 80px;
     height: 80px;
     position: absolute;
     top: -9%;
     left: 50%;
-    transform: translate(-50%,-9%);
+    transform: translate(-50%, -9%);
 }
-.login__form .user img{
+.login__form .user img {
     width: 100%;
-
 }
-.login__form h2{
+
+.login__form h2 {
     color: #fff;
     text-align: center;
     margin-bottom: 2rem;
 }
-.login__form{
-    width: 40%;
-}
-.login__form input{
+
+/* ---------- Input Styling ---------- */
+.login__form input {
     width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
     border: none;
     font-size: 1rem;
     color: var(--heading-color);
 }
-.login__form input:focus{
+.login__form input:focus {
     outline: none;
 }
-.auth__btn{
-    background: (--heading-color) !important;
+
+/* ---------- Main Login Button ---------- */
+.auth__btn {
+    background: var(--heading-color) !important;
     width: 100%;
     color: #fff !important;
-
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all .3s ease;
 }
-.login__form p{
+.auth__btn:hover {
+    background: #23c483 !important;
+}
+
+/* ---------- Admin / User Toggle Buttons ---------- */
+.login-toggle-btns button {
+    font-size: 12px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    transition: 0.3s;
+}
+
+/* Active Button */
+.login-toggle-btns .active-user {
+    background: var(--heading-color);
+    border-color: transparent;
+}
+.login-toggle-btns .active-admin {
+    background: #b22222; /* Dark Red */
+    border-color: transparent;
+}
+
+/* Hover Effects */
+.login-toggle-btns button:hover {
+    transform: translateY(-3px);
+}
+
+/* ---------- Link Style ---------- */
+.login__form p {
     font-size: .9rem;
     color: #fff;
     margin-top: 1.5rem;
     text-align: center;
 }
-.login__form p a{
+.login__form p a {
     color: var(--heading-color);
     text-decoration: none;
-    margin-left: 5px;
-    font-weight: 500;
-}
-/* From Uiverse.io by Mhyar-nsi */ 
-button {
-  padding: 1.3em 3em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
+    font-weight: 600;
 }
 
-button:hover {
-  background-color: #23c483;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-
-button:active {
-  transform: translateY(-1px);
+/* ---------- Responsive (Mobile) ---------- */
+@media (max-width: 992px) {
+    .login__container {
+        flex-direction: column;
+        margin-top: 50px;
+    }
+    .login__img, .login__form {
+        width: 100%;
+    }
+    .login__img img {
+        width: 60%;
+    }
 }
