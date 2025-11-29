@@ -21,6 +21,8 @@ const Tour = () => {
         Aos.refresh(); 
       }, []);
 
+
+      
   const [pageCount,setPageCount]=useState(0);
   const [page,setPage]=useState(0);
   const[location , setLocation] = useState("");

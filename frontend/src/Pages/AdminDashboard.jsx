@@ -4,14 +4,22 @@ import { useEffect, useState } from 'react';
 import { axiosInstance } from '../config/axiosInstances';
 import "../styles/adminDash.css";
 
+
+import tourData from '../assets/data/tours'
+
+
 // ⭐ ADD THESE 2 LINES
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { format } from 'date-fns';
 
 // --- SIDEBAR ---
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
+
   return (
-    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+    // Changed bg-dark to bg-light
+    // Changed text-white to text-dark
+    <div className="d-flex flex-column flex-shrink-0 p-3 text-dark bg-light"
       style={{ width: '260px', minHeight: '100vh' }}
       data-aos="fade-right"
     >
@@ -19,37 +27,44 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
       <hr />
 
       {/* Tabs */}
-      <button className={`nav-link text-white w-100 text-start mt-2 ${activeTab === 'tours' ? 'active bg-warning text-dark' : ''}`}
+      <button 
+        // Changed text-white to text-dark
+        className={`nav-link text-dark w-100 text-start mt-2 ${activeTab === 'tours' ? 'active bg-warning text-dark' : ''}`}
         onClick={() => setActiveTab('tours')}
         data-aos="fade-up"
       >
         <i className="bi bi-airplane me-2"></i> Manage Tours
       </button>
 
-      <button className={`nav-link text-white w-100 text-start mt-2 ${activeTab === 'users' ? 'active bg-warning text-dark' : ''}`}
+      <button 
+        // Changed text-white to text-dark
+        className={`nav-link text-dark w-100 text-start mt-2 ${activeTab === 'users' ? 'active bg-warning text-dark' : ''}`}
         onClick={() => setActiveTab('users')}
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        <i className="bi bi-people me-2"></i> Users
+        <i className="bi bi-people me-2"></i> Booking
       </button>
-
-      <button className="nav-link text-white w-100 text-start mt-2" data-aos="fade-up" data-aos-delay="200">
-        <i className="bi bi-gear me-2"></i> Settings
-      </button>
-
       <hr />
+{/*       
       <button className="btn btn-danger w-100" data-aos="zoom-in">
         <i className="bi bi-box-arrow-right me-2"></i> Logout
-      </button>
+      </button> */}
+      
     </div>
   );
 };
 
+
+
 // --- TOURS MANAGEMENT ---
 const ManageTours = () => {
 
+
   const [tours, setTours] = useState([]);
+
+
+
   const [newTour, setNewTour] = useState({
     title: "",
     city: "",
@@ -59,6 +74,7 @@ const ManageTours = () => {
     desc: "",
   });
 
+
   const fetchTours = async () => {
     try {
       const res = await axiosInstance.get("/tours");
@@ -67,6 +83,7 @@ const ManageTours = () => {
       alert("Error fetching tours");
     }
   };
+
 
   useEffect(() => {
     fetchTours();
@@ -92,6 +109,9 @@ const ManageTours = () => {
       alert("Failed to create tour");
     }
   };
+
+  console.log("tour data in admin : " , tourData);
+
 
   return (
     <div className="container-fluid" data-aos="fade-up">
@@ -135,8 +155,8 @@ const ManageTours = () => {
               </tr>
             </thead>
             <tbody>
-              {tours.map((tour, i) => (
-                <tr key={tour._id} data-aos="fade-left" data-aos-delay={i * 50}>
+              {tourData.map((tour, i) => (
+                <tr key={tour._id}>
                   <td className="fw-bold">{tour.title}</td>
                   <td>{tour.city}</td>
                   <td>${tour.price}</td>
@@ -152,11 +172,14 @@ const ManageTours = () => {
                   </td>
                 </tr>
               ))}
-              {tours.length === 0 && (
+
+
+              {tourData.length === 0 && (
                 <tr>
                   <td colSpan="5" className="text-center text-muted py-3">No tours available</td>
                 </tr>
               )}
+
             </tbody>
           </table>
         </div>
@@ -166,16 +189,89 @@ const ManageTours = () => {
   );
 };
 
+
+
 // --- USERS ---
-const ManageUsers = () => (
+const ManageUsers = () => {
+
+
+  const[userBooking , setUserBooking]  = useState([]);
+   
+  async function fetchbooking() {
+    try {
+      const response = await axiosInstance.get("/booking/all");
+      setUserBooking(response.data.data);
+    } catch (error) {
+      alert("falied to fetche user booking !")
+    }
+  }
+
+  useEffect(()=>{
+    fetchbooking()
+  },[])
+
+  console.log("user all booking in admin page : " , userBooking);
+
+
+return(
+  
   <div className="container" data-aos="fade-up">
-    <h2 className="mb-4">Users Management</h2>
-    <p className="text-muted">Users listing & control coming soon...</p>
+    <h2 className="mb-4">Booking Management</h2>
+
+      {/* Tours Table */}
+      <div className="card border-0 shadow" data-aos="fade-right" data-aos-delay="200">
+        <div className="card-body p-0">
+          <table className="table table-hover align-middle mb-0">
+            <thead className="bg-light">
+              <tr>
+                <th>User</th>
+                <th>Title</th>
+                <th>guestSize</th>
+                <th>Price</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userBooking && userBooking.map((tour, i) => (
+                <tr key={tour._id} data-aos="fade-left" data-aos-delay="100">
+                  <td className="fw-bold">{tour.userEmail}</td>
+                  <td className="fw-bold">{tour.tourName}</td>
+                  <td>{tour.guestSize}</td>
+                  <td>${tour.totalAmount}</td>
+                  <td>
+                    {tour.bookingAt 
+                      ? format(new Date(tour.bookingAt), 'MMM dd, yyyy, p') 
+                       : 'N/A'
+                      }
+                  </td>
+                </tr>
+              ))}
+
+
+              {userBooking.length == 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center text-muted py-3">No tours available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
   </div>
-);
+)
+}
+
+
+  
+
+
+
+
 
 // --- MAIN ---
 const AdminDashboard = () => {
+
   const [activeTab, setActiveTab] = useState("tours");
 
   // ⭐ Initialize AOS here

@@ -8,6 +8,7 @@ import avatar from '../assets/images/avatar.jpg';
 import Booking from '../components/Booking/Booking';
 import NewsLetter from '../shared/NewsLetter';
 
+
 const TourDetails = () => {
   const { id } = useParams(); // get tour id from URL
   const reviewMsgRef = useRef(null);

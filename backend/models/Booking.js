@@ -7,7 +7,7 @@ const bookingSchema = new mongoose.Schema(
     },
     userEmail: {
       type: String,
-    
+      
     },
     tourName:{
        type:String,
@@ -29,7 +29,11 @@ const bookingSchema = new mongoose.Schema(
     type:Date,
     required:true,
    }
-    
+   ,
+   totalAmount  :{
+    type : Number,
+    default : 100
+   }
   },
   { timestamps: true }
 );

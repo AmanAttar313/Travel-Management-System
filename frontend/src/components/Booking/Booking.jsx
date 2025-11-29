@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import './booking.css'
 import { Form,FormGroup,ListGroup,ListGroupItem,Button } from 'reactstrap'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../../config/axiosInstances'
 
 
 
@@ -9,20 +10,19 @@ const Booking = ({tour ,avgRating}) => {
       
 
 
-    const {price,reviews}=tour[0];
+    const {price,reviews , title}=tour[0];
 
 
-    console.log("tour in booking : " , tour)
+    console.log("tour in booking : " , title)
     const navigate=useNavigate()
 
     const [credentials,setCredentials]=useState({
-        useId:'01' ,//later it will be dynamic
-        userEmail:'example123@gmail.com',
         fullName:'',
         phone:'',
         guestSize:1,
         bookAt:' '
     })
+
 
     const serviceFee=10
 
@@ -33,9 +33,29 @@ const Booking = ({tour ,avgRating}) => {
      };
 
      //send data to server
-     const handleClick=e=>{
+     const handleClick=async(e)=>{
         e.preventDefault()
-        navigate("/thank-you")
+
+
+        try {
+
+            const response = await axiosInstance.post("/booking/create" , {
+                tourName  : title,
+                fullname  : credentials.fullName,
+                guestSize : credentials.guestSize ,
+                phone  : credentials.phone,
+                bookingAt : credentials.bookAt,
+                totalAmount : totalAmount
+            });
+
+
+            console.log("response : " , response.data);
+        navigate("/thank-you");
+        } catch (error) {
+            console.log("error : " , error);
+            alert("create booking failed!");
+        }
+        
      }
   return (
     <div className='booking'>
@@ -59,7 +79,6 @@ const Booking = ({tour ,avgRating}) => {
                     <FormGroup>
                     <input type="date" placeholder='' id='bookAt' required onChange={handleChange} />
                     <input type="number" placeholder='Guest' id='guestSize' required onChange={handleChange} />
-
                     </FormGroup> 
 
             </Form>
