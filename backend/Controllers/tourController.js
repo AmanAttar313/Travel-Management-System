@@ -1,19 +1,58 @@
 import Tour from '../models/Tour.js'
+import { uploadOnCloudinary } from '../services/cloudinary.js';
 
 //create new tour
-export const createTour=async(req,res)=>{
-    const newTour=new Tour(req.body);
-    
-    try {
-        const savedTour=await newTour.save()
-        res.status(200).json({
-            success:true,message:'Successfully Created',
-            data:savedTour})
-    } catch (err) {
-        res.status(500).json({success:false,message:'Failed to Create .Try Again'})
-    }
-}
+export const createTour = async (req, res) => {
+  try {
+    let photoUrl;
+    if (req.file) {
+  
+      const localFilePath = req.file.path;
 
+      // Upload to Cloudinary
+      const uploadResponse = await uploadOnCloudinary(localFilePath);
+
+      if (uploadResponse) {
+
+        photoUrl = uploadResponse.secure_url;
+
+      } else {
+       
+        return res.status(500).json({ 
+            success: false, 
+            message: "Failed to upload image to Cloudinary" 
+        });
+      }
+    }
+
+   
+    const tourData = {
+      ...req.body,
+    price: Number(req.body.price),
+    distance: Number(req.body.distance),
+      ...(photoUrl && { photo: photoUrl }),
+    };
+
+    const newTour = new Tour(tourData);
+
+    // 4. Save to Database
+    const savedTour = await newTour.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Successfully Created",
+      data: savedTour,
+    });
+
+  } catch (err) {
+    console.error(err); // Good to log the actual error for debugging
+    res.status(500).json({
+      success: false,
+      message: "Failed to Create. Try Again",
+      error: err.message, // Optional: send specific error message back
+    });
+  }
+};
 
 
 
@@ -76,12 +115,10 @@ export const getSingleTour=async(req,res)=>{
 }
 //getAll tours
 export const getAllTour=async(req,res)=>{
-    // for pagination
-    const page=parseInt(req.query.page)
-    console.log(page)
-    
+
     try {
-        const tours=await Tour.find({}).populate('reviews').skip(page * 8).limit(8)
+        const tours=await Tour.find().populate('reviews');
+
         res.status(200).json({
              success:true,
              count:tours.length,

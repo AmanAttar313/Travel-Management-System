@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
-
 const tourSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     city: {
       type: String,
@@ -21,11 +19,10 @@ const tourSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default : "/"
+      default : "https://res.cloudinary.com/mudemoenv/image/upload/v1764500085/tour_jmg6sz.jpg"
     },
     desc: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
@@ -45,7 +42,6 @@ const tourSchema = new mongoose.Schema(
 
     featured: {
       type: Boolean,
-      default: false,
     },
   },
   { timestamps: true }

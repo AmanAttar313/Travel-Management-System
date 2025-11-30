@@ -12,6 +12,7 @@ import tourData from '../assets/data/tours'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { format } from 'date-fns';
+import axios from 'axios';
 
 // --- SIDEBAR ---
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
@@ -50,7 +51,7 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
       <button className="btn btn-danger w-100" data-aos="zoom-in">
         <i className="bi bi-box-arrow-right me-2"></i> Logout
       </button> */}
-      
+
     </div>
   );
 };
@@ -64,15 +65,69 @@ const ManageTours = () => {
   const [tours, setTours] = useState([]);
 
 
+  console.log("ManageTours toures : " , tours);
 
-  const [newTour, setNewTour] = useState({
+  const[loading , setLoading] = useState(false);
+
+
+// 1. Separate State for Text Data
+  const [inputs, setInputs] = useState({
     title: "",
     city: "",
-    price: "",
-    photo: "",
+    address: "",
     distance: "",
+    price: "",
+    maxGroupSize: "",
     desc: "",
   });
+
+  // 2. Separate State for the File
+  const [tourPhoto, setTourPhoto] = useState(null);
+
+  // Handle Text Inputs
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  // Handle File Input
+  const handleFileChange = (e) => {
+    // We select the first file from the array
+    setTourPhoto(e.target.files[0]);
+  };
+
+  // Handle Submit
+  const handleCreate = async (e) => {
+    e.preventDefault(); 
+     setLoading(true)
+    const formData = new FormData();
+    // Append text fields
+    formData.append("title", inputs.title);
+    formData.append("city", inputs.city);
+    formData.append("address", inputs.address);
+    formData.append("distance", inputs.distance);
+    formData.append("price", inputs.price);
+    formData.append("maxGroupSize", inputs.maxGroupSize);
+    formData.append("desc", inputs.desc);
+    if (tourPhoto) {
+      formData.append("photo", tourPhoto);
+    }
+
+    try {
+      // Replace with your actual API URL
+      const res = await axios.post("http://localhost:4000/api/v1/tours/create", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("Tour created!" , res.data);
+      alert("Success");
+      fetchTours();//update new toures
+    } catch (err) {
+      console.error(err);
+      alert("Failed to create tour");
+    }finally{
+     setLoading(false);
+
+    }
+  };
 
 
   const fetchTours = async () => {
@@ -92,7 +147,8 @@ const ManageTours = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Do you want to delete this tour?")) return;
     try {
-      await axiosInstance.delete(`/tours/${id}`);
+
+      await axiosInstance.delete(`/tours/delete/${id}`);
       alert("Tour Deleted!");
       fetchTours();
     } catch {
@@ -100,49 +156,76 @@ const ManageTours = () => {
     }
   };
 
-  const handleCreate = async () => {
-    try {
-      await axiosInstance.post("/tours", newTour);
-      alert("Tour Created Successfully");
-      fetchTours();
-    } catch {
-      alert("Failed to create tour");
-    }
-  };
-
-  console.log("tour data in admin : " , tourData);
+  // const handleCreate = async () => {
+  //   try {
+  //     await axiosInstance.post("/tours", newTour);
+  //     alert("Tour Created Successfully");
+  //     fetchTours();
+  //   } catch {
+  //     alert("Failed to create tour");
+  //   }
+  // };
 
 
-  return (
-    <div className="container-fluid" data-aos="fade-up">
+return (
+    <div className="container-fluid">
       <h2 className="mb-4">Manage Tours</h2>
 
       {/* Add Form */}
-      <div className="card border-0 shadow-sm mb-4" data-aos="zoom-in">
+      <div className="card border-0 shadow-sm mb-4"> 
+        {/* I removed data-aos="zoom-in" temporarily to debug visibility */}
         <div className="card-body">
-          <h5>Add New Tour</h5>
-          <div className="row g-3 mt-2">
-            {Object.keys(newTour).map((field) => (
-              <div className="col-md-4" key={field}>
-                <input
-                  type="text"
-                  placeholder={field.toUpperCase()}
-                  className="form-control"
-                  value={newTour[field]}
-                  onChange={(e) => setNewTour({ ...newTour, [field]: e.target.value })}
-                />
+          <h5 className="mb-4">Add New Tour</h5>
+          <form onSubmit={handleCreate}>
+            <div className="row g-3">
+              {/* Title */}
+              <div className="col-md-12">
+                <label htmlFor="title" className="form-label">Tour Title</label>
+                <input type="text" className="form-control" id="title" required onChange={handleChange} value={inputs.title} />
               </div>
-            ))}
-          </div>
-
-          <button className="btn btn-success mt-3" onClick={handleCreate} data-aos="zoom-in-up">
-            <i className="bi bi-plus-circle me-2"></i>Create Tour
-          </button>
+              {/* City & Address */}
+              <div className="col-md-6">
+                <label htmlFor="city" className="form-label">City</label>
+                <input type="text" className="form-control" id="city" required onChange={handleChange} value={inputs.city} />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="address" className="form-label">Address</label>
+                <input type="text" className="form-control" id="address" required onChange={handleChange} value={inputs.address} />
+              </div>
+              {/* Numbers */}
+              <div className="col-md-4">
+                <label htmlFor="price" className="form-label">Price</label>
+                <input type="number" className="form-control" id="price" required onChange={handleChange} value={inputs.price} />
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="distance" className="form-label">Distance</label>
+                <input type="number" className="form-control" id="distance" required onChange={handleChange} value={inputs.distance} />
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="maxGroupSize" className="form-label">Max People</label>
+                <input type="number" className="form-control" id="maxGroupSize" required onChange={handleChange} value={inputs.maxGroupSize} />
+              </div>
+               {/* Photo */}
+               <div className="col-md-12">
+                  <label htmlFor="photo" className="form-label">Tour Photo</label>
+                  <input type="file" className="form-control" id="photo" accept="image/*" onChange={handleFileChange} />
+               </div>
+              {/* Desc */}
+              <div className="col-md-12">
+                <label htmlFor="desc" className="form-label">Description</label>
+                <textarea className="form-control" id="desc" rows="3" required onChange={handleChange} value={inputs.desc}></textarea>
+              </div>
+              <div className="col-12">
+                <button type="submit" disabled={loading}  className="btn btn-success mt-2">{loading ? "loading...." : "Create Tour"}</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
-      {/* Tours Table */}
-      <div className="card border-0 shadow" data-aos="fade-up" data-aos-delay="200">
+      {/* --- THIS IS THE TABLE PART --- */}
+      {/* I removed data-aos tags to ensure visibility first */}
+      <div className="card border-0 shadow">
         <div className="card-body p-0">
           <table className="table table-hover align-middle mb-0">
             <thead className="bg-light">
@@ -155,36 +238,31 @@ const ManageTours = () => {
               </tr>
             </thead>
             <tbody>
-              {tourData.map((tour, i) => (
+              {/* Check if tourData exists and map it */}
+              {tours&& tours?.map((tour) => (
                 <tr key={tour._id}>
                   <td className="fw-bold">{tour.title}</td>
                   <td>{tour.city}</td>
                   <td>${tour.price}</td>
                   <td>{tour.distance} km</td>
                   <td>
-                    <button
-                      className="btn btn-sm btn-danger"
-                      onClick={() => handleDelete(tour._id)}
-                      data-aos="zoom-out"
-                    >
+                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(tour._id)}>
                       <i className="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>
               ))}
 
-
-              {tourData.length === 0 && (
+              {/* Show this if list is empty */}
+              {(!tourData || tourData.length === 0) && (
                 <tr>
                   <td colSpan="5" className="text-center text-muted py-3">No tours available</td>
                 </tr>
               )}
-
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
   );
 };

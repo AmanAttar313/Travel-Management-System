@@ -11,17 +11,18 @@ import {
 } from './../Controllers/tourController.js'
 
 import { verifyAdmin } from '../utils/verifyToken.js'
+import { upload } from '../utils/multer.js';
 
 const router = express.Router()
 
 // Create
-router.post('/', verifyAdmin, createTour)
+router.post('/create', upload.single('photo') , createTour);
 
 // Update
-router.put('/:id', verifyAdmin, updateTour)
+router.put('/:id',  updateTour)
 
 // Delete
-router.delete('/:id', verifyAdmin, deleteTour)
+router.delete('/delete/:id', deleteTour);
 
 // Search Tours
 router.get('/search', getTourBySearch)
@@ -33,7 +34,7 @@ router.get('/featured', getFeaturedTour)
 router.get('/count', getTourCount)
 
 // Get All Tours
-router.get('/', getAllTour)
+router.get('/', getAllTour);
 
 // Get Single Tour (ALWAYS LAST)
 router.get('/:id', getSingleTour)
