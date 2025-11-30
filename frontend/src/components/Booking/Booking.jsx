@@ -10,7 +10,7 @@ const Booking = ({tour ,avgRating}) => {
       
 
 
-    const {price,reviews , title}=tour[0];
+    const {price,reviews , title}=tour;
 
 
     console.log("tour in booking : " , title)
@@ -53,7 +53,19 @@ const Booking = ({tour ,avgRating}) => {
         navigate("/thank-you");
         } catch (error) {
             console.log("error : " , error);
-            alert("create booking failed!");
+            // alert("create booking failed!");
+               let errorMessage = "Create booking failed!"; // Default generic message
+        if (error.response && error.response.data && error.response.data.message) {
+         
+            errorMessage = error.response.data.message;
+        } else if (error.message) {
+            
+            errorMessage = error.message;
+        } else {
+            errorMessage = String(error);
+        }
+        
+        alert(errorMessage);
         }
         
      }

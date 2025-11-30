@@ -37,6 +37,6 @@ router.get('/count', getTourCount)
 router.get('/', getAllTour);
 
 // Get Single Tour (ALWAYS LAST)
-router.get('/:id', getSingleTour)
+router.get('/:id', getSingleTour);
 
 export default router

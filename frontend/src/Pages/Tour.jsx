@@ -7,6 +7,7 @@ import SearchBar from '../shared/SearchBar'
 import NewsLetter from '../shared/NewsLetter'
 import { Col, Container, Form, Row , FormGroup } from 'reactstrap'
 import Aos from 'aos'
+import { axiosInstance } from '../config/axiosInstances'
 
 
 
@@ -28,19 +29,8 @@ const Tour = () => {
   const[location , setLocation] = useState("");
   const[distance , setDistance] = useState(10000000);
   const[people , setPeople] = useState(0);
-
-
-  // const searchTours = tourData.filter((ele) => 
-  //  ele.city?.toLowerCase().includes(location.toLowerCase())
-  //  ).filter(ele => ele.distance <= distance).filter(ele => ele.maxGroupSize <= people);
-  
-   //  Filter by City
-let searchTours = tourData.filter((ele) => 
-   ele.city?.toLowerCase().includes(location.toLowerCase())
-);
-searchTours = searchTours.filter(ele => ele.distance <= distance);
-searchTours = searchTours.filter(ele => ele.maxGroupSize >= people);
-
+  const[loading , setLoading] = useState(false);
+  const[tours , setTours] = useState([]);
 
 
 useEffect(() => {
@@ -49,8 +39,44 @@ useEffect(() => {
 }, []);  
 
 
+
+
+  const fetchTours = async () => {
+    try {
+      setLoading(true);
+      const res = await axiosInstance.get("/tours");
+      setTours(res.data.data);
+    } catch (error) {
+      alert("Error fetching tours");
+    }finally{
+      setLoading(false)
+    }
+  };
+
+  useEffect(()=>{
+  fetchTours();
+  },[])
+  
+
+
+
+    // const searchTours = tourData.filter((ele) => 
+  //  ele.city?.toLowerCase().includes(location.toLowerCase())
+  //  ).filter(ele => ele.distance <= distance).filter(ele => ele.maxGroupSize <= people);
+  
+   //  Filter by City
+let searchTours = tours?.filter((ele) => 
+   ele.city?.toLowerCase().includes(location.toLowerCase())
+);
+searchTours = searchTours.filter(ele => ele.distance <= distance);
+searchTours = searchTours.filter(ele => ele.maxGroupSize >= people);
+
+
+
+
   console.log("data : " , tourData);
   console.log("data search : " , searchTours);
+
   
 
   return (
