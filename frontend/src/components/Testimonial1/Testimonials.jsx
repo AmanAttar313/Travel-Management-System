@@ -1,12 +1,10 @@
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ava01 from "../../assets/images/ava-1.jpg";
 import ava02 from "../../assets/images/ava-2.jpg";
 import ava03 from "../../assets/images/ava-3.jpg";
-// import Slider from "react-slick";
-// import { Slider } from "react-slick";
 import slick from "react-slick";
+
 const Slider = slick.default || slick;
 
 const Testimonials = () => {
@@ -39,96 +37,81 @@ const Testimonials = () => {
     ],
   };
 
-
-
-
-
   return (
-   
-<Slider {...settings}>
-    
-    {/* Slide 1 */}
-    <div>
-      <div className="testimonial py-4 px-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <img src={ava01} className="h-25 w-25 rounded-2" alt="" />
-          <div>
-            <h5 className="mb-0 mt-3">John Doe</h5>
-            <p>Customer</p>
+    <Slider {...settings}>
+      
+      {/* Slide 1 */}
+      <div>
+        <div className="testimonial py-4 px-3">
+          <p>An amazing travel experience with excellent service and smooth planning.</p>
+          <div className="d-flex align-items-center gap-3 mt-3">
+            <img src={ava01} className="h-25 w-25 rounded-2" alt="" />
+            <div>
+              <h5 className="mb-0 mt-3">John Doe</h5>
+              <p>Customer</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Slide 2 */}
-    <div>
-      <div className="testimonial py-4 px-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <img src={ava02} className="h-25 w-25 rounded-2" alt="" />
-          <div>
-            <h5 className="mb-0 mt-3">Jorden Jojo</h5>
-            <p>Customer</p>
+      {/* Slide 2 */}
+      <div>
+        <div className="testimonial py-4 px-3">
+          <p>Everything was well organized and the journey was truly unforgettable.</p>
+          <div className="d-flex align-items-center gap-3 mt-3">
+            <img src={ava02} className="h-25 w-25 rounded-2" alt="" />
+            <div>
+              <h5 className="mb-0 mt-3">Jorden Jojo</h5>
+              <p>Customer</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Slide 3 */}
-    <div>
-      <div className="testimonial py-4 px-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <img src={ava03} className="h-25 w-25 rounded-2" alt="" />
-          <div>
-            <h5 className="mb-0 mt-3">Alex Smith</h5>
-            <p>Customer</p>
+      {/* Slide 3 */}
+      <div>
+        <div className="testimonial py-4 px-3">
+          <p>Friendly guides, great locations, and a stress-free travel experience.</p>
+          <div className="d-flex align-items-center gap-3 mt-3">
+            <img src={ava03} className="h-25 w-25 rounded-2" alt="" />
+            <div>
+              <h5 className="mb-0 mt-3">Alex Smith</h5>
+              <p>Customer</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Slide 4 */}
-    <div>
-      <div className="testimonial py-4 px-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <img src={ava03} className="h-25 w-25 rounded-2" alt="" />
-          <div>
-            <h5 className="mb-0 mt-3">Alex Smith</h5>
-            <p>Customer</p>
+      {/* Slide 4 */}
+      <div>
+        <div className="testimonial py-4 px-3">
+          <p>Professional service and memorable moments throughout the trip.</p>
+          <div className="d-flex align-items-center gap-3 mt-3">
+            <img src={ava03} className="h-25 w-25 rounded-2" alt="" />
+            <div>
+              <h5 className="mb-0 mt-3">Alex Smith</h5>
+              <p>Customer</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Slide 5 */}
-   <div>
-      <div className="testimonial py-4 px-3">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-        <div className="d-flex align-items-center gap-3 mt-3">
-          <img src={ava02} className="h-25 w-25 rounded-2" alt="" />
-          <div>
-            <h5 className="mb-0 mt-3">Jorden Jojo</h5>
-            <p>Customer</p>
+      {/* Slide 5 */}
+      <div>
+        <div className="testimonial py-4 px-3">
+          <p>Highly recommended for anyone who loves comfortable and exciting travel.</p>
+          <div className="d-flex align-items-center gap-3 mt-3">
+            <img src={ava02} className="h-25 w-25 rounded-2" alt="" />
+            <div>
+              <h5 className="mb-0 mt-3">Jorden Jojo</h5>
+              <p>Customer</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-</Slider>
+    </Slider>
   );
 };
 
 export default Testimonials;
-
-
-
-
-
-

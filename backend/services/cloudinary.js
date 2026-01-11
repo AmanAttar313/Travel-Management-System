@@ -1,9 +1,9 @@
 import {v2 as cloudinary} from 'cloudinary';
           
 cloudinary.config({ 
-  cloud_name: 'mudemoenv', 
-  api_key: '216618791292249', 
-  api_secret: 'P4Nk7c481vzAZkdehLgPY2huZvc' 
+  cloud_name: 'dangtjmfk', 
+  api_key: '972522698662229', 
+  api_secret: 'X-vj7BGgscE6Y6-r0HFZt4a0-Us' 
 });
 
 

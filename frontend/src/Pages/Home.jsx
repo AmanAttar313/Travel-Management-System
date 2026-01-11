@@ -50,11 +50,11 @@ const Home = () => {
                   <span className="highlight">Memories</span>
                 </h1>
 
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Numquam sed harum recusandae corrupti at esse ex praesentium saepe
-                  illum dolorem nam dicta aliquam, maiores accusamus voluptate atque vitae?
-                </p>
+               <p>
+  Discover new places, experience different cultures, and create memories that
+  last a lifetime. From peaceful escapes to thrilling adventures, we help you
+  plan journeys that inspire, refresh, and bring your travel dreams to life.
+</p>
               </div>
             </Col>
 
@@ -119,9 +119,12 @@ const Home = () => {
                   <Subtitle subtitle={'Experience'}/>
                   <h2>With Our All Experince <br />We Will Serve</h2>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti similique nisi dolorum perferendis,
-                    <br/> error, unde blanditiis at quae voluptates rem quisquam? Optio modi perspiciatis libero earum eligendi quod delectus tempore!
-                  </p>
+  Backed by years of travel expertise, we are committed to delivering
+  exceptional service and unforgettable journeys. Our experienced team
+  carefully plans every detail to ensure comfort, safety, and memorable
+  experiences for every traveler.
+</p>
+
                 </div>
                 <div className="counter__wrapper d-flex align-item-center gap-5" data-aos="fade-up" data-aos-delay="300">
                   <div className="counter__box">
